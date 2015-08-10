@@ -23,6 +23,7 @@ public class TestExam extends BaseTestCase
     private OpportunityPage opportunityPage;
     private NewOpportunityPage newOpportunityPage;
     private OpportunityInfoPage opportunityInfoPage;
+    private LookupPage lookupPage;
 
     @BeforeMethod
     public void CreateAccount()
@@ -37,16 +38,19 @@ public class TestExam extends BaseTestCase
     {
         opportunityPage = topMenuBar.Opportunities();
         newOpportunityPage = opportunityPage.clickNew();
-        opportunityInfoPage = newOpportunityPage.setOpportunity(opportunityName)
-                .setCloseDate(closeDate)
-                .selectStage(stateValue).clickSave();
+        lookupPage = newOpportunityPage.setOpportunity(opportunityName)
+                .setCloseDate(closeDate).selectStage(stateValue).clickLookup();
+
+        newOpportunityPage = lookupPage.clickSearchResult(accountName);
+
+        opportunityInfoPage = newOpportunityPage.clickSave();
 
         String accountNameApp = opportunityInfoPage.getAccountName();
         String opportunityNameApp = opportunityInfoPage.getOpportunityName();
         String closeDateApp = opportunityInfoPage.getCloseDate();
         String stateValueApp = opportunityInfoPage.getState();
 
-        //Assert.assertEquals(accountName, accountNameApp);
+        Assert.assertEquals(accountName, accountNameApp);
         Assert.assertEquals(opportunityName, opportunityNameApp);
         Assert.assertEquals(closeDate, closeDateApp);
         Assert.assertEquals(stateValue, stateValueApp);

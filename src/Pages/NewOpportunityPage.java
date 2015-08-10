@@ -12,6 +12,7 @@ public class NewOpportunityPage extends BasicPage
     private String stageId = "opp11";
     private String closeDateId = "opp9";
     private String saveName = "save";
+    private String lookupClass   = "lookupIcon";
 
     public NewOpportunityPage setOpportunity(String value)
     {
@@ -39,4 +40,9 @@ public class NewOpportunityPage extends BasicPage
         return new OpportunityInfoPage();
     }
 
+    public LookupPage clickLookup()
+    {
+        driver.findElement(By.className(lookupClass)).click();
+        return new LookupPage();
+    }
 }
