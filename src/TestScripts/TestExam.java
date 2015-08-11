@@ -41,7 +41,7 @@ public class TestExam extends BaseTestCase
         lookupPage = newOpportunityPage.setOpportunity(opportunityName)
                 .setCloseDate(closeDate).selectStage(stateValue).clickLookup();
 
-        newOpportunityPage = lookupPage.clickSearchResult(accountName);
+        lookupPage.clickSearchResult(accountName);
 
         opportunityInfoPage = newOpportunityPage.clickSave();
 
@@ -59,6 +59,10 @@ public class TestExam extends BaseTestCase
     @AfterMethod
     public void DeleteAccountOpportunity()
     {
+        opportunityPage = topMenuBar.Opportunities();
+        opportunityInfoPage = opportunityPage.clickOpportunity(opportunityName);
+        opportunityInfoPage.clickDelete();
+
         accountPage = topMenuBar.Accounts();
         accountInfoPage = accountPage.clickAccount(accountName);
         accountInfoPage.clickDelete();

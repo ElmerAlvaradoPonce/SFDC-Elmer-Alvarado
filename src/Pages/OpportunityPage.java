@@ -19,9 +19,9 @@ public class OpportunityPage extends BasicPage
         return new NewOpportunityPage();
     }
 
-    public void clickOpportunity(String opportunity)
+    public OpportunityInfoPage clickOpportunity(String opportunity)
     {
         driver.findElement(By.linkText(opportunity)).click();
-        //return new AccountInfoPage();
+        return new OpportunityInfoPage();
     }
 }

@@ -17,15 +17,16 @@ public class LookupPage extends BasicPage
     private String searchFrameId =  "searchFrame";
     private String resultsFrameId =  "resultsFrame";
 
+    private String contentId;
+
     public LookupPage()
     {
-
-
+        contentId = driver.getWindowHandle();
+        this.switchToSecondBrowser();
     }
 
     public LookupPage setSearch(String value)
     {
-        this.switchToSecondBrowser();
         driver.switchTo().frame(searchFrameId);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(searchTextFieldId)));
         driver.findElement(By.id(searchTextFieldId)).sendKeys(value);
@@ -38,15 +39,11 @@ public class LookupPage extends BasicPage
         return this;
     }
 
-    public NewOpportunityPage clickSearchResult(String value)
+    public void clickSearchResult(String value)
     {
-        String contentId = driver.getWindowHandle();
-
-        this.switchToSecondBrowser();
         driver.switchTo().frame(resultsFrameId);
         driver.findElement(By.linkText(value)).click();
         driver.switchTo().window(contentId);
-
-        return new NewOpportunityPage();
+        //return new NewOpportunityPage();
     }
 }
