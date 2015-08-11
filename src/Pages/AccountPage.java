@@ -2,6 +2,7 @@ package Pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 /**
@@ -9,11 +10,11 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
  */
 public class AccountPage extends BasicPage
 {
-    private String newButtonName="new";
+    private final String newButtonName="new";
 
+    @FindBy(name = newButtonName) private WebElement newButton;
     public NewAccountPage clickNew()
     {
-        WebElement newButton = driver.findElement(By.name(newButtonName));
         wait.until(ExpectedConditions.visibilityOf(newButton));
         newButton.click();
         return new NewAccountPage();

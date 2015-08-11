@@ -1,6 +1,9 @@
 package Pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.CacheLookup;
+import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.LinkedList;
@@ -11,13 +14,16 @@ import java.util.Set;
  */
 public class LookupPage extends BasicPage
 {
-    private String searchTextFieldId = "lksrch";
-    private String goButtonName = "go";
+    private final String searchTextFieldId = "lksrch";
+    private final String goButtonName = "go";
 
     private String searchFrameId =  "searchFrame";
     private String resultsFrameId =  "resultsFrame";
 
     private String contentId;
+
+    @FindBy(id = searchTextFieldId) @CacheLookup private WebElement searchTextField;
+    @FindBy(name = goButtonName) private WebElement goButton;
 
     public LookupPage()
     {
@@ -28,14 +34,14 @@ public class LookupPage extends BasicPage
     public LookupPage setSearch(String value)
     {
         driver.switchTo().frame(searchFrameId);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(searchTextFieldId)));
-        driver.findElement(By.id(searchTextFieldId)).sendKeys(value);
+        wait.until(ExpectedConditions.visibilityOf(searchTextField));
+        searchTextField.sendKeys(value);
         return this;
     }
 
     public LookupPage clickGo()
     {
-        driver.findElement(By.name(goButtonName)).click();
+        goButton.click();
         return this;
     }
 
@@ -44,6 +50,5 @@ public class LookupPage extends BasicPage
         driver.switchTo().frame(resultsFrameId);
         driver.findElement(By.linkText(value)).click();
         driver.switchTo().window(contentId);
-        //return new NewOpportunityPage();
     }
 }
